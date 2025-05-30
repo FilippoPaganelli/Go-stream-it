@@ -18,10 +18,12 @@ var (
 	streamCmd   *exec.Cmd
 	streamMutex sync.Mutex
 	isStreaming bool
+	token       string
+	url         string
 )
 
 func main() {
-	var token = loadEnv()
+	token, url = loadEnv()
 	ctx := context.Background()
 
 	b, err := bot.New(token)
@@ -38,14 +40,14 @@ func main() {
 	b.Start(ctx)
 }
 
-func loadEnv() string {
+func loadEnv() (string, string) {
 	err := godotenv.Load(".env")
 	if err != nil {
 		println("ERROR: Could not load .env file")
 		panic(err)
 	}
 
-	return os.Getenv("TELEGRAM_BOT_TOKEN")
+	return os.Getenv("TELEGRAM_BOT_TOKEN"), os.Getenv("YOUTUBE_STREAMING_URL")
 }
 
 func startStream() error {
@@ -58,7 +60,7 @@ func startStream() error {
 
 	var stdout, stderr io.ReadCloser
 	var err error
-	streamCmd, stdout, stderr, err = runFfmpeg()
+	streamCmd, stdout, stderr, err = runFfmpeg(url)
 	if err != nil {
 		return err
 	}

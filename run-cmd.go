@@ -3,12 +3,11 @@ package main
 import (
 	"fmt"
 	"io"
-	"os"
 	"os/exec"
 	"path/filepath"
 )
 
-func runFfmpeg() (*exec.Cmd, io.ReadCloser, io.ReadCloser, error) {
+func runFfmpeg(youtubeUrl string) (*exec.Cmd, io.ReadCloser, io.ReadCloser, error) {
 	const cmdName = "ffmpeg"
 	const cmdWorkingDirectory = "/home/pagans/Desktop/shrimps"
 	videoFileName := filepath.Join(cmdWorkingDirectory, "merged_rotated_fitted_1080p.mp4")
@@ -27,7 +26,7 @@ func runFfmpeg() (*exec.Cmd, io.ReadCloser, io.ReadCloser, error) {
 		"-c:a", "aac",
 		"-b:a", "128k",
 		"-f", "flv",
-		os.Getenv("YOUTUBE_STREAMING_URL"),
+		youtubeUrl,
 	}
 
 	streamCmd = exec.Command(cmdName, cmdArgs...)

@@ -1,6 +1,13 @@
 ### Go-stream-it
 
-This repository hosts my extremely minimal Telegram bot, for managing my shrimps video streaming to YouTube.
+This repository hosts my _extremely minimal_ Telegram bot, for managing my shrimps video streamings to YouTube remotely, using Telegram bot commands.
+
+The project has been developed on/for Linux only, tested on a Raspberry Pi 4, running Raspberry Pi OS.
+
+Commands:
+- `/start`: start streaming to YouTube
+- `/stop`: stop streaming to YouTube
+- `/status`: get the streaming status (running/not running)
 
 ## Build the bot
 
@@ -90,5 +97,11 @@ make deploy
 
 ## Env variables
 
-YOUTUBE_STREAMING_URL
-To run this code you should have set up a Telegram bot. The code expects then a `TELEGRAM_BOT_TOKEN` environment variable in a `.env` file in the repo's root folder.
+| Name    | Used for |
+| -------- | ------- |
+| YOUTUBE_STREAMING_URL  | Streaming the video content to the right YouTube channel    |
+| TELEGRAM_BOT_TOKEN* | Authenticating the Telegram bot creation     |
+
+The environment variables have to be defined in a `.env` file in the root folder of the repo.
+
+*To run this code you should have set up a Telegram bot, and have received a bot token.
